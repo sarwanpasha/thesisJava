@@ -68,7 +68,7 @@ public class Thesis1 {
     static int[][] edgeList_Array = new int[edgeList_Array_Count][2];
     static int[] a1 = new int[Node_Count];
     static int[] a2 = new int[Node_Count];
-//    static int[] Hidden_Users = {4};
+//    static int[] Hidden_Users = {475};
     static int[] Hidden_Users = IntStream.rangeClosed(1,Node_Count).toArray();
 //static int[] Hidden_Users = IntStream.rangeClosed(1,100).toArray();
 
@@ -89,7 +89,7 @@ public class Thesis1 {
 
         int numNodes = G.V();
         int numEdges = G.E();
-        System.out.println("Number of vertices in G " + numNodes + "  " + numEdges);
+        System.out.println("Number of vertices in G " + numNodes + "  " + (numEdges/2));
 
         ArrayList<String> edgeList = G.get_Edge_List();
 
@@ -108,8 +108,8 @@ public class Thesis1 {
             for (innerLoop = 0; innerLoop < attributeCount; innerLoop++) {
                 attribute1 = outerLoop;
                 attribute2 = innerLoop;
-                attribute1 = 0; // Status
-                attribute2 = 1; // Gender
+                attribute1 = 1; // Status
+                attribute2 = 0; // Gender
                 attributes_Names att = new attributes_Names();
                 att.set_attribute_Name(attribute1, attribute2);
                 String temp_attr_1 = att.get_attribute_1();
@@ -163,7 +163,7 @@ public class Thesis1 {
                 for (int i = 0; i < a1_length; i++) {
                     String temp_MM = "";
                     for (int j = 0; j < a2_length; j++) {
-                        temp_MM = temp_MM + Row_Normalized_Mixing_Matrix[i][j] + " ";
+                        temp_MM = temp_MM + Mixing_Matrix[i][j] + " ";
 //                    System.err.println(Row_Normalized_Mixing_Matrix[i][j]);
                     }
                     System.err.println(temp_MM);
@@ -262,11 +262,11 @@ public class Thesis1 {
                         //Loop to find friends of friend (y1, y2, .....)
                         int[] FOF_distribution_row_sum=new int[Immediate_friends.size()];
                         
-                        int Friend_Index;
+                        
                         for (int j = 0; j < Immediate_friends.size(); j++) {
-                             Friend_Index = (Integer) Immediate_friends.get(j);
-                            //Find friends of each friend (FOF)
-                            Friends_of_friend = Friend_Finder(attribute1, attribute2, Friend_Index); //y1, y2, ....
+                             
+                            //Find FOF of each friend Friend
+                            Friends_of_friend = Friend_Finder(attribute1, attribute2, (Integer) Immediate_friends.get(j)); //y1, y2, ....
                             Collections.sort(Friends_of_friend); //Sorting Arraylist
 //                            System.err.println("Length of FOF = " + Friends_of_friend.size() +" AND Total FOF of friend = " + 
 //                                    Immediate_friends.get(j) + " Are = " + Friends_of_friend);
@@ -301,24 +301,29 @@ public class Thesis1 {
                             
 //                            System.err.println("FOF Distribution for Node " + i + " with friend "+ Immediate_friends.get(j) + " are = " + 
 //                              tmp_FOF_distribution_normalized);
-
+                            for(int s=0;s<a1_length;s++){
+                                String vote2="";
                             for (int b = 0; b < a2_length; b++) {
+                                
 //                                int index=(find(a1(j)==a1_distinct));
 //                                int index = indexOf(a1[j], a1_distinct);
-                                int index = indexOf(a1[Friend_Index], a1_distinct);
+//                                int index = indexOf(a1[(Integer) Immediate_friends.get(j)], a1_distinct);
 //                                for (int v = 0; v < a1_length; v++) {
 //                                    System.err.println("FOF_distribution_normalized is =  " + FOF_distribution_normalized[b]);
                                     prediction_Final[j][b] =  (FOF_distribution_normalized[b] * 
-                                            Row_Normalized_Mixing_Matrix[index][b]);
+                                            Row_Normalized_Mixing_Matrix[s][b]);
 //                                }
+                                vote[b] = prediction_Final[j][b];
+                                vote2 = vote2 + vote[b] + " ";
+                            }
+//                            System.err.println("Vote = " + vote2);
                             }
 //                            System.err.println("Predicted final = " + prediction_Final[j][0] + " "+ prediction_Final[j][1] + 
 //                                       " "+ prediction_Final[j][2] + " "+ prediction_Final[j][3]);
-                            for(int f=0; f<a2_length; f++){
-                                vote[f] = prediction_Final[j][f];
-                            }
+                            
+                            
                             final_vote[j] = findLargest(vote);
-                           
+//                           System.err.println("Largest = " + final_vote[j]);
 //                            System.err.println("Votes for = " + j + " Are = " + final_vote[j]);
 //                            for (int b = 0; b < Immediate_friends.size(); b++) {
 //                                System.err.println("Votes for = " + b + " Are = " + final_vote[b]);
@@ -342,7 +347,7 @@ public class Thesis1 {
 //                                             + Final_FOF_Row_Sum);
                                 }
                             }
-//                        System.err.println(Final_FOF_distibution);
+                        System.err.println(Final_FOF_distibution);
 //                       System.err.println("Final FOF Distribution for Node " + i + " = " + Final_FOF_distibution);
 //                        System.err.println("FOF Distribution for Node " + i + " are = " + 
 //                              tmp_FOF_distribution_normalized);
@@ -352,7 +357,7 @@ public class Thesis1 {
 //                               }
 //                        Final_predicted_Value[i] = ss findLargest(final_vote);
                         Final_predicted_Value[i] = finding_Mode_value(final_vote);
-//                        System.err.println("Final vote for user " + i + " is = " + Final_predicted_Value[i]);
+//                        System.err.println("Mode " + i + " is = " + Final_predicted_Value[i]);
 
                         
 //                        print_array(Predicting_Attribute_Counter);
@@ -393,6 +398,7 @@ public class Thesis1 {
                 for(int i=0; i<Hidden_Count; i++){
                     
                     row_index = indexOf((int)Final_predicted_Value[i], a2_distinct);
+//                    System.out.println("row_index for node " + i + " = " + row_index);
                     column_index = indexOf(Actual_Value[i], a2_distinct);
                     if(row_index>=0 &&column_index>=0){
                     Confusion_Matrix[row_index][column_index]++; 
@@ -448,8 +454,11 @@ public class Thesis1 {
             int count = 0;
             for (int j = 0; j < max_array.length; ++j) 
             {
+                if (max_array[j] != 0) 
+                {
                 if (max_array[j] == max_array[i])
                     ++count;
+                }
             }
             if (count > maxCount) 
             {
