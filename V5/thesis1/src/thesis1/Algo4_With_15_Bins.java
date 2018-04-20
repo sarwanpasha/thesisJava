@@ -30,40 +30,40 @@ import static oracle.jrockit.jfr.events.Bits.intValue;
 public class Algo4_With_15_Bins {
 
     static int result=0;
-//    //Caltech Dataest
-//    static int Node_Count = 769;
-//    static int edgeList_Array_Count = 33313;
-//    //Caltech Dataest
+    //Caltech Dataest
+    static int Node_Count = 769;
+    static int edgeList_Array_Count = 33313;
+    //Caltech Dataest
 
 //     //Rice Dataest
 //    static int Node_Count = 4088;
 //    static int edgeList_Array_Count = 369657;
 //    //Rice Dataest
     
-         //American75 Dataest
-    static int Node_Count = 6387;
-    static int edgeList_Array_Count = 435325;
-    //American75 Dataest
-    //
+//         //American75 Dataest
+//    static int Node_Count = 6387;
+//    static int edgeList_Array_Count = 435325;
+//    //American75 Dataest
+//    //
 //    static int Node_Count = 6;
 //    static int edgeList_Array_Count = 6;
 ////    //
-////    //caltech Dataset Attributed Matrix Path
-//    static String attribute_Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\caltech_attributes.txt";
-////    //caltech Dataset Edge list path
-//    static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\Caltech36_edgelist2.txt";
-////     static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\Caltech36_edgelist.txt";
-////
+//    //caltech Dataset Attributed Matrix Path
+    static String attribute_Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\caltech_attributes.txt";
+//    //caltech Dataset Edge list path
+    static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\Caltech36_edgelist2.txt";
+//     static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\Caltech36_edgelist.txt";
+//
 ////        //Rice Dataset Attributed Matrix Path
 //    static String attribute_Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\Rice_attributes.txt";
 ////    //Rice Dataset Edge list path
 //    static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\Rice31_edgelist.txt";
 ////
-            //American75 Dataset Attributed Matrix Path
-    static String attribute_Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\American75_attributes.txt";
-//    //American75 Dataset Edge list path
-    static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\American75_edgelist.txt";
-    
+//            //American75 Dataset Attributed Matrix Path
+//    static String attribute_Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\American75_attributes.txt";
+////    //American75 Dataset Edge list path
+//    static String Path = "E:\\MS Computer Science\\MS Thesis\\Java Code\\thesis1\\src\\thesis1\\American75_edgelist.txt";
+//    
     static int[][] attributeMatrix = new int[Node_Count][7];
     static int[][] edgeList_Array = new int[edgeList_Array_Count][2];
     static int[] a1 = new int[Node_Count];
@@ -154,7 +154,7 @@ public static void Fifteen_Bin_Function() throws IOException{
                 System.err.println("Predicting Attribute " + temp_attr_2 + " using " + temp_attr_1);
                 
                 String   writeFileName1 = 
-                		"E:/MS Computer Science/MS Thesis/Java Code/errorResults/Rice/15Bins/";
+                		"C:\\Users\\Pasha\\Desktop\\errors\\caltech\\15 bins\\";
                 String   writeFileName = writeFileName1 + temp_attr_2 + "_using_" + temp_attr_1 + ".txt";
                 
                 FileWriter fileWriter = new FileWriter(writeFileName);
